@@ -1,4 +1,4 @@
-There are three ways in which we can easily take screenshots and get it on the computer
+There are three - ways in which we can easily take screenshots and get it on the computer
 
 ## Table of Contents
 
