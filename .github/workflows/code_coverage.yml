@@ -27,7 +27,7 @@ jobs:
   #         sha: auto
 
   compute_changed_files:
-    name: Compute changed file
+    name: Compute changed files
     # needs: check_unit_tests_completed
     runs-on: ubuntu-20.04
     outputs:
