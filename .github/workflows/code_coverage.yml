@@ -20,11 +20,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trigger action_required conclusion
+      - name: Simulate Action Required Status
+        if: ${{ github.event_name == 'pull_request' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+          curl -X POST -H "Authorization: token $PAT_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ github.repository }}/check-runs \
           -d '{
@@ -34,10 +35,9 @@ jobs:
             "conclusion": "action_required",
             "output": {
               "title": "Manual Action Needed",
-              "summary": "Cha cha cha."
+              "summary": "Simulated action_required state."
             }
           }'
-
 
 
   # check_unit_tests_completed:
