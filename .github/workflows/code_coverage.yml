@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   # check_unit_tests_completed:
-  #   name: Check unit test completed
+  #   name: Check unit test completed.
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Wait for unit tests to checks
