@@ -97,6 +97,7 @@ jobs:
             }
           
      - name: Compute PR head owner/repo reference
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        env:
          PR_HEAD_REPO: ${{ matrix.prInfo.headRepository.name }}
          PR_HEAD_REPO_OWNER: ${{ matrix.prInfo.headRepositoryOwner.login }}
@@ -111,11 +112,13 @@ jobs:
          echo "PR $PR_NUMBER is merging into $PR_BASE_REF_NAME from https://github.com/$PR_HEAD branch $PR_HEAD_REF_NAME."
 
      - name: Set up JDK 11
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        uses: actions/setup-java@v1
        with:
          java-version: 11
 
      - name: Set up Bazel
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        uses: abhinavsingh/setup-bazel@v3
        with:
          version: 6.5.0
@@ -127,6 +130,7 @@ jobs:
      # benefit from incremental build performance (assuming that actions/cache aggressively removes
      # older caches due to the 5GB cache limit size & Bazel's large cache size).
      - uses: actions/cache@v2
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        id: cache
        with:
          path: ${{ env.CACHE_DIRECTORY }}
@@ -159,6 +163,7 @@ jobs:
          fi
 
      - name: Configure Bazel to use a local cache
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        env:
          BAZEL_CACHE_DIR: ${{ env.CACHE_DIRECTORY }}
        run: |
@@ -171,19 +176,23 @@ jobs:
      # run from the latest develop rather than the base branch (which might be different for
      # chained PRs).
      - name: Check out develop repository
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        uses: actions/checkout@v4
        with:
          path: develop
 
      - name: Set up build environment
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        uses: ./develop/.github/actions/set-up-android-bazel-build-environment
 
      - name: Check Bazel environment
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        run: |
          cd develop
          bazel info
 
      - name: Check out base repository and branch
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        env:
          PR_BASE_REF_NAME: ${{ matrix.prInfo.baseRefName }}
        uses: actions/checkout@v4
@@ -193,6 +202,7 @@ jobs:
          path: base
 
      - name: Check out head repository and branch
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        env:
          PR_HEAD_REF_NAME: ${{ matrix.prInfo.headRefName }}
        uses: actions/checkout@v4
@@ -230,7 +240,7 @@ jobs:
          bazel shutdown
 
      - name: Run stats analysis tool (develop branch)
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        run: |
          cd develop
          git log -n 1
@@ -244,7 +254,7 @@ jobs:
      # Reference: https://github.com/peter-evans/create-or-update-comment#setting-the-comment-body-from-a-file.
      # Also, for multi-line env values, see: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#multiline-strings.
      - name: Extract reports for uploading & commenting
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        env:
          PR_NUMBER: ${{ matrix.prInfo.number }}
        id: compute-comment-body
@@ -261,7 +271,7 @@ jobs:
          cp "$GITHUB_WORKSPACE/develop/full_build_summary.log" "$FULL_BUILD_SUMMARY_FILE_PATH"
 
      - name: Compare apk aab analysis with the previous report
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        run: |        
          sed -i -e '$a\' ./develop/brief_build_summary.log
          sed -i -e '$a\' ${{ steps.find_latest_apk_aab_comment.outputs.commentBody }}
@@ -276,7 +286,7 @@ jobs:
          fi
 
      - name: Add build stats summary comment
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }} && ${{ env.skip_apk_aab_comment == 'false' }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }} && ${{ env.skip_apk_aab_comment == 'false' }}
        env:
          PR_NUMBER: ${{ matrix.prInfo.number }}
        uses: peter-evans/create-or-update-comment@v1
@@ -285,7 +295,7 @@ jobs:
          body: ${{ steps.compute-comment-body.outputs.comment_body }}
 
      - uses: actions/upload-artifact@v4
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        with:
          name: ${{ env.FULL_BUILD_SUMMARY_FILE_NAME }}
          path: ${{ env.FULL_BUILD_SUMMARY_FILE_PATH }}
