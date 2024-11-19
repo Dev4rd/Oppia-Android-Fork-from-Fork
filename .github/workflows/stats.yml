@@ -90,10 +90,10 @@ jobs:
 
             if(recentCommitsCount > 0) {
               echo "New commits found after the last apk & aab stat analysis"
-              core.setOutput("new_commits", true);
+              core.setOutput("new_commits", "true");
             } else {
               echo "No new commits found after last apk & aab stat analysis"
-              core.setOutput("new_commits", false);
+              core.setOutput("new_commits", "false");
             }
           
      - name: Compute PR head owner/repo reference
