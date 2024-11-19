@@ -206,7 +206,7 @@ jobs:
      # up being active (due to multiple repositories being used) and this can quickly overwhelm CI
      # worker resources.
      - name: Build Oppia dev, alpha, beta, and GA (feature branch)
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == "true" }}
        run: |
          cd head
          git log -n 1
@@ -218,7 +218,7 @@ jobs:
          bazel shutdown
 
      - name: Build Oppia dev, alpha, beta, and GA (base branch)
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits }}
+       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == "true" }}
        run: |
          cd base
          git log -n 1
