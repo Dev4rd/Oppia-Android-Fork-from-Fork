@@ -42,6 +42,22 @@ jobs:
      ENABLE_CACHING: false
      CACHE_DIRECTORY: ~/.bazel_cache
    steps:
+     - name: Check for new comments via script 
+       id: check_comments
+       uses: actions/github-script@v6
+       with:
+          script: |
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 2,
+            });
+            console.log(`Comments count - ${comments.length}`);
+            console.log(`Comments from script - ${JSON.stringify(comments, null, 2)}`);
+            
+            console.log(`Comments - ${comments}`); 
+   
+   
      - name: Find the last APK AAB Analysis
        env:
          PR_NUMBER: ${{ matrix.prInfo.number }}
