@@ -274,7 +274,7 @@ jobs:
        if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
        run: |        
          sed -i -e '$a\' ./develop/brief_build_summary.log
-         sed -i -e '$a\' ${{ steps.find_latest_apk_aab_comment.outputs.commentBody }}
+         sed -i -e '$a\' ${{ steps.find_latest_apk_aab_comment.outputs.latest_aab_comment_body }}
          
          if diff -B ./develop/brief_build_summary.log ${{ steps.find_latest_apk_aab_comment.outputs.commentBody }} > /dev/null; then
            echo "No significant changes detected; skipping apk aab analysis comment."
