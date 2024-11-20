@@ -9,7 +9,7 @@ import java.io.File
 /** Minimum coverage percentage required. */
 const val MIN_THRESHOLD = 70
 
-/* ANSI escape codes for colors. */
+/* ANSI escape - color codes. */
 
 /** Green text. */
 const val GREEN = "\u001B[32m"
@@ -505,14 +505,14 @@ class CoverageReporter(
       append("> To learn more, visit the [Oppia Android Code Coverage](https://github.com/oppia/oppia-android/wiki/Oppia-Android-Code-Coverage) wiki page")
     }
 
-    val wikiPageLinkNote = buildString {
-      val wikiPageReferenceNote = ">To learn more, visit the [Oppia Android Code Coverage]" +
-        "(https://github.com/oppia/oppia-android/wiki/Oppia-Android-Code-Coverage) wiki page"
-      append("\n\n")
-      append("#")
-      append("\n")
-      append(wikiPageReferenceNote)
-    }
+    // val wikiPageLinkNote = buildString {
+    //   val wikiPageReferenceNote = ">To learn more, visit the [Oppia Android Code Coverage]" +
+    //     "(https://github.com/oppia/oppia-android/wiki/Oppia-Android-Code-Coverage) wiki page"
+    //   append("\n\n")
+    //   append("#")
+    //   append("\n")
+    //   append(wikiPageReferenceNote)
+    // }
 
     val finalReportText = coverageReportContainer.coverageReportList.takeIf { it.isNotEmpty() }
       ?.let {
@@ -525,8 +525,8 @@ class CoverageReporter(
           failureMarkdownTable +
           failureMarkdownEntries +
           successMarkdownEntries +
-          testFileExemptedSection +
-          wikiPageLinkNote
+          testFileExemptedSection 
+          // wikiPageLinkNote
       } ?: skipCoverageReportText
 
     val finalReportOutputPath = mdReportOutputPath
