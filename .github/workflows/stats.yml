@@ -95,10 +95,6 @@ jobs:
               console.log("No new commits found after last apk & aab stat analysis");
               core.setOutput("new_commits", "false");
             }
-
-     - name: Set skip comment based on new commit
-       if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'false' }}
-       run: echo "skip_apk_aab_comment=true" >> $GITHUB_ENV
           
      - name: Compute PR head owner/repo reference
        if: ${{ steps.check_commits_after_latest_apk_aab_comment.outputs.new_commits == 'true' }}
