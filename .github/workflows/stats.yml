@@ -278,7 +278,7 @@ jobs:
          sed -i -e '$a\' ./develop/brief_build_summary.log
          sed -i -e '$a\' latest_aab_comment_body.log
          
-         if diff -B ./develop/brief_build_summary.log ${{ steps.find_latest_apk_aab_comment.outputs.commentBody }} > /dev/null; then
+         if diff -B ./develop/brief_build_summary.log latest_aab_comment_body.log > /dev/null; then
            echo "No significant changes detected; skipping apk aab analysis comment."
            echo "skip_apk_aab_comment=true" >> $GITHUB_ENV
          else
