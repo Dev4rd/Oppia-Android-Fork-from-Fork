@@ -13,7 +13,7 @@ This page aims to provide some context around: 1.
 - How background processing is done in the Android app
 - Best practices to follow when managing background or expensive tasks
 - Existing utilities to simplify using DataProviders
-- How to safely pass data to the UI
+- How to safely pass data to the UI.
 
 ## Background
 
