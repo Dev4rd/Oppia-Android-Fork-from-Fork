@@ -133,6 +133,7 @@ Follow the template below for asking questions (fill in the values inside {{}} b
 ```
 
 ### Important points
+* oh shakalaka
 
 * If you are unable to push changes due to some reason, you can create a [patch file](https://docs.gitlab.com/omnibus/development/creating-patches.html) and share it with the person you're asking for help.
 
