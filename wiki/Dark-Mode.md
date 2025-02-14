@@ -13,7 +13,7 @@ This guide explains the newly adopted convention for using colors in oppia-andro
 to any particular layout while keeping the code organised and strictly following the decided convention.
 
 The approach is to split color declarations in 4 different files instead of keeping the colors at one place, promoting separation of 
-concerns and hence improving code maintainability and understandability.
+concerns and hence improving code maintainability and understandability..
 
 
 
