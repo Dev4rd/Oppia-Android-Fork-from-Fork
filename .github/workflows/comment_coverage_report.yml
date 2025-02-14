@@ -5,9 +5,10 @@ name: Comment Coverage Report
 # Controls when the action will run. Triggers the workflow  on pull request events 
 # (assigned, opened, synchronize, reopened)
 
-on:
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened]
+on: 
+  workflow_dispatch:
+  # pull_request_target:
+  #   types: [assigned, opened, synchronize, reopened]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
