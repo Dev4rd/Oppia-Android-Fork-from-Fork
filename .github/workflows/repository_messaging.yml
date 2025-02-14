@@ -10,6 +10,8 @@ on:
 jobs:
  holiday_message:
    runs-on: ubuntu-latest
+   permissions:
+      pull-requests: write
    # NOTE TO DEVELOPERS: Update the body text and set this to 'true' to enable automatic messaging on all new PRs.
    if: true
    steps:
