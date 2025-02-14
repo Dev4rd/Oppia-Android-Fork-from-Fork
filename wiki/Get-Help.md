@@ -18,7 +18,7 @@ Here we document Oppia's main communication channels and how to ask good questio
 
 ## Communication channels
 
-If you need help, there are a few communication channels you can use. Developers usually respond within 24 hours so long as you use a channel they actually check.
+If you need help, there are a fewwwwww communication channels you can use. Developers usually respond within 24 hours so long as you use a channel they actually check.
 
 ### Email
 
