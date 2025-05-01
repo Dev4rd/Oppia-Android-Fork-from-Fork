@@ -14,7 +14,7 @@
 You should generally never need to create a new DataProvider since there are existing bridges for most asynchronous operations, but if you do make sure to follow other DataProviders for a reference to make sure you're implementing it correctly.
 
 
-### Transferring data to UI via LiveData
+### Transferring data to UI via LiveData.
 
 [``LiveData``](https://developer.android.com/topic/libraries/architecture/livedata) is a lifecycle-aware stateful concurrency primitive that was added to Android Jetpack. The team prefers using ``LiveData`` for a few reasons:
 1. It supports receiving data from a background thread via an Android ``Handler`` post
